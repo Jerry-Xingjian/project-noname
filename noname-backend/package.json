@@ -9,8 +9,7 @@
   "scripts": {
     "lint": "eslint --ignore-pattern *.test.js --ignore-pattern *.test.jsx ",
     "start": "node server.js",
-    "test": "jest --coverage --runInBand",
-    "build": "cd noname-backend && npm install && cd .. && cd noname && npm install && npm run build"
+    "test": "jest --coverage --runInBand"
   },
   "keywords": [
     "nodejs",
