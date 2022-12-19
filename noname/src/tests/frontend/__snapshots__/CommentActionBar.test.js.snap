@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test PostPopupView matches snapshot 1`] = `
+<div
+  className="d-flex justify-content-between px-4 py-2 border-top border-bottom"
+>
+  <svg
+    className="action-icon"
+    fill="none"
+    height="28"
+    viewBox="0 0 28 29"
+    width="28"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.08324 7.45L18.4894 4.11397C22.7105 2.61689 25.0039 5.0688 23.6079 9.56006L20.4725 19.5681C18.3675 26.2991 14.9108 26.2991 12.8058 19.5681L11.8752 16.5975L9.08324 15.6073C2.75708 13.3676 2.75708 9.70152 9.08324 7.45Z"
+      stroke="#292D32"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+    />
+    <path
+      d="M12.0857 16.0908L16.052 11.8589"
+      stroke="#292D32"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+    />
+  </svg>
+  <div
+    className="d-flex align-items-center"
+  >
+    <svg
+      className="action-icon heart me-2 "
+      fill="none"
+      height="25"
+      onClick={[Function]}
+      role="presentation"
+      viewBox="0 0 26 25"
+      width="26"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13.3679 21.6769C13.0138 21.8019 12.4304 21.8019 12.0763 21.6769C9.05542 20.6457 2.30542 16.3436 2.30542 9.05192C2.30542 5.83317 4.89917 3.229 8.09709 3.229C9.99292 3.229 11.67 4.14567 12.7221 5.56234C13.7742 4.14567 15.4617 3.229 17.3471 3.229C20.545 3.229 23.1388 5.83317 23.1388 9.05192C23.1388 16.3436 16.3888 20.6457 13.3679 21.6769Z"
+        stroke="#292D32"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      />
+    </svg>
+    <p
+      className="m-0"
+    >
+      0
+    </p>
+  </div>
+</div>
+`;

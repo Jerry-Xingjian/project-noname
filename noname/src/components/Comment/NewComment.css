@@ -1,0 +1,36 @@
+.new-comment-bar .form-width {
+    width: 90% !important;
+}
+
+.new-comment-bar .commentInput{
+    height: 60px;
+    width: 90% !important;
+}
+
+.new-comment-bar .commentInput__input{
+    height: 60px;
+    max-width: 100% !important;
+    border-radius: 5px;
+    border-color: transparent !important;
+    padding: 5px 10px !important;
+    resize: none;
+    overflow: scroll !important;
+}
+
+.new-comment-bar .commentInput__highlighter {
+    height: 60px;
+    padding: 5px 10px !important;
+}
+
+.new-comment-bar .mentionText {
+    color: #6c757d;
+    z-index: 1;
+    position: relative;
+}
+
+.new-comment-bar .mention-suggestion .avatar-image {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

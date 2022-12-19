@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test Post card structure test 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="main-content"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col"
+      >
+        <button
+          className="btn btn-link"
+          id="change-picture"
+          title="Change Picture"
+          type="button"
+        >
+          <img
+            alt="Profile"
+            className="rounded-circle"
+            height="175"
+            src="https://nonome-project-media.s3.amazonaws.com/profile-picture.jpeg"
+            width="175"
+          />
+        </button>
+      </div>
+      <div
+        className="col"
+      >
+        <form
+          action="/profile/1"
+        >
+          Name
+          <input
+            className="input my-3"
+            id="name"
+            name="name"
+            placeholder="Username"
+            type="text"
+          />
+          <br />
+          Bio
+          <input
+            className="input my-3"
+            id="bio"
+            name="bio"
+            placeholder="Change your Bio here"
+            type="text"
+          />
+          <br />
+          Default Location
+          <input
+            className="input my-3"
+            id="location"
+            name="location"
+            placeholder="Location"
+            type="text"
+          />
+          <br />
+          Password
+          <input
+            className="input my-3"
+            id="password"
+            name="password"
+            placeholder="*********"
+            type="text"
+          />
+          <br />
+          <a
+            className="btn mx-2 my-2"
+            href="/profile/1"
+            id="cancel"
+            type="button"
+          >
+            CANCEL
+          </a>
+          <input
+            className="btn mx-2 my-2"
+            id="save"
+            type="submit"
+            value="SAVE"
+          />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test snapshot 1`] = `
+<div
+  className="fixed-top"
+>
+  <nav
+    className="navbar navbar-expand-lg bg-dark"
+  >
+    <div
+      className="container-fluid navbar-content-padding d-flex justify-content-between"
+    >
+      <a
+        className="navbar-brand"
+        href="/home"
+        onClick={[Function]}
+      >
+        <p
+          className="brand-name"
+        >
+          NoName
+        </p>
+      </a>
+      <input
+        aria-label="Search"
+        className="form-control me-2 w-25 "
+        onChange={[Function]}
+        placeholder="Search"
+        type="search"
+      />
+      <div
+        className="menu-icon d-flex justify-content-around "
+      >
+        <a
+          className="btn btn-link btn-sm"
+          href="/home"
+          onClick={[Function]}
+        >
+          <img
+            alt="menu"
+            src="https://nonome-project-media.s3.amazonaws.com/icons/global.svg"
+          />
+        </a>
+        <button
+          className="btn btn-link btn-sm"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt="menu"
+            src="https://nonome-project-media.s3.amazonaws.com/icons/add-square.svg"
+          />
+        </button>
+        <a
+          className="btn btn-link btn-sm"
+          href="/profile/6388320305d016d46329331d"
+          onClick={[Function]}
+        >
+          <img
+            alt="menu"
+            src="https://nonome-project-media.s3.amazonaws.com/icons/profile-circle.svg"
+          />
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div
+    className="search-bar-results w-100 d-flex justify-content-center d-none"
+  >
+    <ul
+      className="list-group w-25"
+    />
+  </div>
+</div>
+`;

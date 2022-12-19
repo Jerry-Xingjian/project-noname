@@ -1,0 +1,61 @@
+.comment .avatar-image {
+  width: 32px;
+  height: 32px;
+}
+
+.comment .mention-link {
+  color: #0D8CFF;
+}
+
+.comment .commentInput{
+  height: 60px;
+  width: 90% !important;
+}
+
+.comment .commentInput__input{
+  height: 60px;
+  max-width: 100% !important;
+  border-radius: 5px;
+  /* border-color: transparent !important; */
+  padding: 5px 10px !important;
+  resize: none;
+  overflow: scroll !important;
+}
+
+.comment .commentInput__highlighter {
+  height: 60px;
+  padding: 5px 10px !important;
+}
+
+.comment .mentionText {
+  color: #6c757d;
+  z-index: 1;
+  position: relative;
+}
+
+.comment .mention-suggestion .avatar-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment .action-icon {
+  width: 16px;
+  height: 16px;
+  transition: all 1s linear;
+}
+
+.comment .action-icon:hover {
+  cursor: pointer;
+}
+
+.comment .action-icon:hover path{
+  cursor: pointer;
+  stroke: #CF250D
+}
+
+.comment .action-icon.heart.active path{
+  fill: #CF250D;
+  stroke: #CF250D;
+}

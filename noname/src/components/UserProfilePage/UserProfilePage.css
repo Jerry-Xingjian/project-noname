@@ -1,0 +1,16 @@
+.btn{
+	width: auto;	
+}
+
+.user-posts {
+	column-count: 2;
+}
+
+#tagged {
+	display: none;
+}
+
+.edit-post-popup {
+	position: absolute;
+	top: 10%;
+}

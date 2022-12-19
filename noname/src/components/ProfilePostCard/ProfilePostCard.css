@@ -1,0 +1,46 @@
+.carousel-indicators > button {
+	background-color: gray;
+	border-radius: 50%;
+	width: 8px !important;
+	height: 8px !important;
+}
+
+.carousel-indicators > button.active {
+	background-color: #CF250D;
+}
+
+.avatar-image {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+}
+
+.action-icon {
+	width: 32px;
+	height: 32px;
+	transition: all 1s linear;
+}
+
+.action-icon:hover {
+	cursor: pointer;
+}
+
+.action-icon:hover path{
+	cursor: pointer;
+	stroke: #CF250D
+}
+
+.action-icon.heart.active path{
+	fill: #CF250D;
+	stroke: #CF250D;
+}
+
+.menu{
+	background: #ffffff;
+}
+
+#location {
+	color: gray;
+	font-size: 12px;
+}
+

@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test Post card structure test 1`] = `
+<div>
+  <div
+    className="card w-100 my-3"
+  >
+    <div
+      className=""
+    >
+      <div
+        className="d-flex align-items-center justify-content-between"
+      >
+        <div
+          className="d-flex align-items-center"
+        >
+          <img
+            alt="Avatar"
+            className="avatar-image ms-3 my-2"
+            mode="aspectFit"
+            src="https://nonome-project-media.s3.amazonaws.com/2.jpeg"
+          />
+          <p
+            className="text-dark my-0 ms-2 text-justify"
+          >
+            dylan
+          </p>
+        </div>
+        <div
+          className="menu dropdown"
+        >
+          <button
+            aria-expanded={false}
+            className="dropdown-toggle btn btn-light"
+            disabled={false}
+            id="dropdown-menu"
+            onClick={[Function]}
+            type="button"
+          />
+        </div>
+      </div>
+      <div
+        className="carousel slide"
+        onKeyDown={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="carousel-indicators"
+        >
+          <button
+            aria-current={true}
+            aria-label="Slide 1"
+            className="active"
+            data-bs-target=""
+            onClick={[Function]}
+            type="button"
+          />
+        </div>
+        <div
+          className="carousel-inner"
+        >
+          <div
+            className="active carousel-item"
+          >
+            <img
+              alt="slide"
+              className="d-block w-100"
+              src="https://nonome-project-media.s3.amazonaws.com/2.jpeg"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="d-flex align-items-left mx-2 my-1"
+      >
+        <div
+          className="col"
+        >
+          <div
+            className="container"
+          >
+            1
+          </div>
+          <div
+            className="container"
+            id="location"
+          >
+            2
+          </div>
+        </div>
+      </div>
+      <div
+        className="d-flex justify-content-between mx-3 my-2"
+      >
+        <div
+          className="d-flex justify-content-between"
+        >
+          <svg
+            className="action-icon me-2"
+            fill="none"
+            height="28"
+            onClick={[Function]}
+            title="comment_icon"
+            viewBox="0 0 27 29"
+            width="28"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.41722 22.3971H8.86327C4.43164 22.3971 2.21582 21.2183 2.21582 15.3243V9.43026C2.21582 4.71504 4.43164 2.35742 8.86327 2.35742H17.7265C22.1582 2.35742 24.374 4.71504 24.374 9.43026V15.3243C24.374 20.0395 22.1582 22.3971 17.7265 22.3971H17.1726C16.8291 22.3971 16.4967 22.574 16.2862 22.8687L14.6244 25.2263C13.8932 26.2636 12.6966 26.2636 11.9654 25.2263L10.3035 22.8687C10.1263 22.6093 9.71636 22.3971 9.41722 22.3971Z"
+              stroke="#292D32"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeMiterlimit="10"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M17.7227 12.9668H17.7326"
+              stroke="#292D32"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+            <path
+              d="M13.2898 12.9668H13.2998"
+              stroke="#292D32"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+            <path
+              d="M8.85719 12.9668H8.86715"
+              stroke="#292D32"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+            />
+          </svg>
+          <svg
+            className="action-icon"
+            fill="none"
+            height="28"
+            viewBox="0 0 28 28"
+            width="28"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.08324 7.45L18.4894 4.11397C22.7105 2.61689 25.0039 5.0688 23.6079 9.56006L20.4725 19.5681C18.3675 26.2991 14.9108 26.2991 12.8058 19.5681L11.8752 16.5975L9.08324 15.6073C2.75708 13.3676 2.75708 9.70152 9.08324 7.45Z"
+              stroke="#292D32"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+            />
+            <path
+              d="M12.0857 16.0908L16.052 11.8589"
+              stroke="#292D32"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </div>
+        <div
+          className="d-flex justify-content-between align-items-center"
+        >
+          <svg
+            className="action-icon heart me-1 "
+            fill="none"
+            height="25"
+            onClick={[Function]}
+            viewBox="0 0 26 25"
+            width="26"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M13.3679 21.6769C13.0138 21.8019 12.4304 21.8019 12.0763 21.6769C9.05542 20.6457 2.30542 16.3436 2.30542 9.05192C2.30542 5.83317 4.89917 3.229 8.09709 3.229C9.99292 3.229 11.67 4.14567 12.7221 5.56234C13.7742 4.14567 15.4617 3.229 17.3471 3.229C20.545 3.229 23.1388 5.83317 23.1388 9.05192C23.1388 16.3436 16.3888 20.6457 13.3679 21.6769Z"
+              stroke="#292D32"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+            />
+          </svg>
+          <p
+            className="text-dark my-0 fw-bold"
+          >
+            0
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

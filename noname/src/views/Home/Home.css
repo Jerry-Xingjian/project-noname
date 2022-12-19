@@ -1,0 +1,14 @@
+.home-content {
+    margin-top: 4rem;
+    padding: 1% 15% !important;
+}
+
+.home-content .infinite-scroll-component {
+    overflow: hidden !important;
+}
+
+.activity-feed-main {
+    column-count: 2;
+    column-gap: 2rem;
+}
+

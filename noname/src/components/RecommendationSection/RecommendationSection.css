@@ -1,0 +1,16 @@
+.recommendation-my-info .avatar-image {
+  width: 64px;
+  height: 64px;
+}
+
+.suggestion-text {
+  font-weight: lighter;
+  font-size: 1rem;
+  text-align: end;
+  margin: 0;
+}
+
+.see-all-button {
+  text-align: end !important;
+  padding: 0 !important;
+}

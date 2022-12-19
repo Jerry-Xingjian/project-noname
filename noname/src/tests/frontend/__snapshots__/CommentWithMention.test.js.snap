@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test CommentWithMention matches snapshot 1`] = `
+<div>
+  great comment@dylan
+</div>
+`;

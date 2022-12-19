@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test newComments matches snapshot 1`] = `
+<div
+  className="new-comment-bar px-4 py-2 d-flex align-items-center"
+>
+  <img
+    alt="Avatar"
+    className="avatar-image me-3"
+    src="https://nonome-project-media.s3.amazonaws.com/default_avatar.png"
+  />
+  <form
+    className="d-flex form-width justify-content-between w-100"
+    onSubmit={[Function]}
+  >
+    <div
+      className="commentInput w-100 commentInput--multiLine"
+      style={
+        Object {
+          "overflowY": "visible",
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="commentInput__control"
+        style={Object {}}
+      >
+        <div
+          className="commentInput__highlighter"
+          style={
+            Object {
+              "border": "1px solid transparent",
+              "boxSizing": "border-box",
+              "color": "transparent",
+              "overflow": "hidden",
+              "position": "relative",
+              "textAlign": "start",
+              "whiteSpace": "pre-wrap",
+              "width": "100%",
+              "wordWrap": "break-word",
+            }
+          }
+        >
+           
+        </div>
+        <textarea
+          className="commentInput__input"
+          data-testid="comment-textarea"
+          id="floatingTextarea"
+          name="comment"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onCompositionEnd={[Function]}
+          onCompositionStart={[Function]}
+          onKeyDown={[Function]}
+          onScroll={[Function]}
+          onSelect={[Function]}
+          placeholder="Leave a comment here"
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "bottom": 0,
+              "boxSizing": "border-box",
+              "display": "block",
+              "fontFamily": "inherit",
+              "fontSize": "inherit",
+              "height": "100%",
+              "left": 0,
+              "letterSpacing": "inherit",
+              "margin": 0,
+              "overflow": "hidden",
+              "position": "absolute",
+              "resize": "none",
+              "top": 0,
+              "width": "100%",
+            }
+          }
+          value=""
+        />
+      </div>
+    </div>
+    <button
+      className="btn btn-link text-decoration-none"
+      data-testid="new-comment-post"
+      type="submit"
+    >
+      Post
+    </button>
+  </form>
+</div>
+`;

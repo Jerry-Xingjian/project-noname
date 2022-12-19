@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test RecommendationCard matches snapshot 1`] = `
+<div
+  className="container d-flex justify-content-between align-items-center mt-2 mb-4"
+>
+  <div
+    className="recommendation-left d-flex flex-column justify-content-end"
+  >
+    <div
+      className="recommendation-my-info d-flex align-middle align-items-center justify-content-end"
+    >
+      <img
+        alt="Avatar"
+        className="avatar-image ms-3 my-2 mx-2"
+        mode="aspectFit"
+        src="https://nonome-project-media.s3.amazonaws.com/default_avatar.png"
+      />
+      <h4
+        className="card-title ms-4"
+      >
+        qhao
+      </h4>
+    </div>
+    <div
+      className="d-flex flex-column mt-2"
+    >
+      <p
+        className="suggestion-text"
+      >
+        <strong>
+          Top Two 
+        </strong>
+        suggestions
+        <br />
+        for you
+        <strong>
+           TODAY
+        </strong>
+      </p>
+    </div>
+  </div>
+  <div
+    className="d-flex flex-column mt-3"
+  />
+</div>
+`;

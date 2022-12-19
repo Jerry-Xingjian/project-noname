@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test RegisterTable component matches snapshot 1`] = `
+<div
+  className="container d-flex flex-column w-25 position-absolute top-50 end-0 translate-middle"
+>
+  <form
+    className="d-flex flex-column"
+    onSubmit={[Function]}
+  >
+    <div
+      className="mb-3"
+    >
+      <h1
+        className="text-center"
+      >
+        Sign In
+      </h1>
+      <p
+        className="text-center text-black-50"
+      >
+        Start your journey from here
+      </p>
+    </div>
+    <div
+      className="form-floating mb-3"
+    >
+      <input
+        className="form-control background-white"
+        id="floatingInput"
+        name="email"
+        placeholder="name@example.com"
+        type="email"
+      />
+      <label
+        htmlFor="floatingInput"
+      >
+        Email address
+      </label>
+    </div>
+    <div
+      className="form-floating mb-3"
+    >
+      <input
+        className="form-control background-white"
+        id="floatingPassword"
+        name="password"
+        onChange={[Function]}
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+      <label
+        htmlFor="floatingPassword"
+      >
+        Password
+      </label>
+    </div>
+    <div
+      className="form-floating mb-3"
+    >
+      <input
+        className="form-control background-white is-invalid"
+        id="floatingConfirmedPassword"
+        onChange={[Function]}
+        placeholder="Confirm Password"
+        type="password"
+        value=""
+      />
+      <label
+        htmlFor="floatingPassword"
+      >
+        Confirm your password
+      </label>
+    </div>
+    <button
+      className="btn btn-danger text-light mb-3"
+      type="submit"
+    >
+      Sign In
+    </button>
+  </form>
+  <button
+    className="btn btn-primary text-light mb-3"
+    type="button"
+  >
+    Sign in with Google
+  </button>
+  <div
+    className="text-center text-black-50 d-flex justify-content-center"
+  >
+    <p
+      className="my-0 me-1"
+    >
+      Already have an account?
+    </p>
+    <a
+      className="text-danger"
+      href="/login"
+      onClick={[Function]}
+    >
+      <p>
+        Login here!
+      </p>
+    </a>
+  </div>
+</div>
+`;

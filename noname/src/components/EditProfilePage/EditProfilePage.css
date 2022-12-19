@@ -1,0 +1,59 @@
+.main-content {
+	width: 60%;
+	position: absolute;
+	top: 15%;
+	left: 15%;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#cancel {
+	position: absolute;
+	left: 75%;
+	width: 90px;
+	border-radius: 4px;
+	color: #cf250D;
+	border: solid 2px transparent;
+	background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(61deg, #cf250D, #ffae00);
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+	box-shadow: 2px 1000px 1px #fff inset;
+
+}
+
+#save {
+	position: absolute;
+	left: 89%;
+	width: 90px;
+	border-radius: 4px;
+	color: #cf250D;
+	border: solid 2px transparent;
+	background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(61deg, #cf250D, #ffae00);
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+	box-shadow: 2px 1000px 1px #fff inset;
+
+}
+
+#change-picture {
+	position: absolute;
+	left:15%;
+	background: none;
+	box-shadow: none;
+}
+
+
+#cancel:hover{
+	box-shadow: none;
+  color: white;
+}
+#save:hover{
+	box-shadow: none;
+  color: white;
+}

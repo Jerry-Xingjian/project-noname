@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot test ImageUploader matches Snapshot 1`] = `
+<div
+  className="App"
+>
+  <input
+    accept=".jpeg, .jpg, .png, .gif, .mp4, .mov, .avi, .wmv"
+    multiple={true}
+    onChange={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+    type="file"
+  />
+  <div
+    className="upload__image-wrapper align-items-center"
+  >
+    <div
+      className="p-2"
+      style={
+        Object {
+          "textAlign": "left",
+        }
+      }
+    />
+    <div
+      className="container"
+      id="add"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="presentation"
+    >
+      <img
+        alt="+"
+        className="mx-2"
+        height="20"
+        src="https://nonome-project-media.s3.amazonaws.com/icons/directbox-send.svg"
+        width="20"
+      />
+      Upload Photo Here
+    </div>
+  </div>
+</div>
+`;

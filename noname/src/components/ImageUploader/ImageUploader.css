@@ -1,0 +1,8 @@
+#add:hover {
+	cursor: pointer;
+}
+
+#add {
+	position: relative;
+	left: 20%;
+}

@@ -1,0 +1,23 @@
+// Changing bootstarp colors
+$blue: #0D8CFF;
+$red: #CF250D;
+$indigo: #480CE8;
+$yellow: #FFAE00;
+$pink: #FFAAAA;
+$light-yellow: #FFF8E5;
+$light-indigo: #E5E3FF;
+$coral: #F05454;
+$white: #F8F9FA;
+$black: #121212;
+$green: #A3DA8D;
+
+$theme-colors: (
+  "primary": $blue,
+  "danger": $red,
+  "success": $green,
+  "warning": $yellow,
+  "info": $indigo,
+  "light": $white
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";

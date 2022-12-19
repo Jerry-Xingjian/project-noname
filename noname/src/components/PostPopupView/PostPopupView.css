@@ -1,0 +1,44 @@
+.post-card-modal {
+  width: 2000px !important;
+}
+
+.post-card-modal .modal-content{
+  border-radius: 20px;
+  height: 48rem;
+}
+
+.post-card-modal .modal-content .post-card-left{
+  border-radius: 20px 0 0 20px;
+  width: 50%;
+  background-color: #121212;
+}
+
+.post-card-modal .modal-content .post-card-right{
+  border-radius: 0 20px 20px 0;
+  width: 50%;
+}
+
+.post-card-modal .post-card-alert{
+  position: absolute;
+  margin: 1rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.post-card-modal .carousel,.post-card-modal .slide,
+.post-card-modal .carousel .carousel-inner,
+.post-card-modal .carousel .carousel-item,
+.post-card-modal .carousel .carousel-item img,
+.post-card-modal .carousel .carousel-control {
+  border-radius: 20px 0 0 20px;
+  overflow: hidden;
+  height: 48rem;
+  object-fit: scale-down;
+  object-position: center;
+}
+
+.post-card-right .comments {
+  height: 35.5rem;
+  overflow-y: scroll;
+}

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test RecommendationCard matches snapshot 1`] = `
+<div
+  className="recommendation-card d-flex py-1 px-1 my-1"
+>
+  <img
+    alt="Avatar"
+    className="avatar-image ms-3 my-2 mx-2"
+    mode="aspectFit"
+    src="https://nonome-project-media.s3.amazonaws.com/default_avatar.png"
+  />
+  <div
+    className="card-body mx-2"
+  >
+    <a
+      className="text-decoration-none"
+      href="/profile/6388320305d016d46329331d"
+      onClick={[Function]}
+      role="presentation"
+    >
+      <h6
+        className="card-title mt-1"
+      >
+        qhao
+      </h6>
+      <div
+        className="card-text"
+      >
+        <small
+          className="text-muted d-inline-block text-truncate"
+        >
+          This is some bio of the user qhao.
+This can be super long but it's fine.
+        </small>
+      </div>
+    </a>
+  </div>
+  <button
+    className="btn btn-link text-decoration-none"
+    onClick={[Function]}
+    type="button"
+  >
+    Follow
+  </button>
+</div>
+`;

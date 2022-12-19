@@ -1,0 +1,11 @@
+.btn{
+	width: auto;	
+}
+
+.user-posts {
+	column-count: 2;
+}
+
+#btn-follow {
+	width: 100px;
+}

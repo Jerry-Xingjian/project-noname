@@ -1,0 +1,9 @@
+.recommendation-card {
+    width: 360px;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+}
+
+.recommendation-card .card-text small{
+    max-width: 100px;
+}
