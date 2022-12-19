@@ -10,7 +10,7 @@
     "lint": "eslint --ignore-pattern *.test.js --ignore-pattern *.test.jsx ",
     "start": "node server.js",
     "test": "jest --coverage --runInBand",
-    "seed": "node ./models/seed.js"
+    "build": "cd noname-backend && npm install && cd .. && cd noname && npm install && npm run build"
   },
   "keywords": [
     "nodejs",

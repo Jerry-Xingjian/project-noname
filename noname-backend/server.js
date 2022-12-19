@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const console = require('console');
+const path = require('path');
 // const WebSocket = require('ws');
 // // security feature. JSON web token - https://jwt.io
 // const jwt = require('jsonwebtoken');
@@ -47,14 +48,19 @@ const usersRouter = require('./routes/usersRoute');
 const postsRouter = require('./routes/postsRoute');
 const profilesRouter = require('./routes/profilesRoute');
 
-// connect to server
-webapp.listen(port, async () => {
-  await connect();
-  console.log(`Server running on port: ${port}`);
-});
-
+webapp.use(express.static(path.join(__dirname, '../noname/build')));
 webapp.use(express.urlencoded({ extended: true }));
 webapp.use(express.json());
 webapp.use('/', usersRouter);
 webapp.use('/', postsRouter);
 webapp.use('/', profilesRouter);
+
+// Root endpoint
+webapp.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../noname/build/index.html'));
+});
+// connect to server
+webapp.listen(port, async () => {
+  await connect();
+  console.log(`Server running on port: ${port}`);
+});

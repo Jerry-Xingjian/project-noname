@@ -1,0 +1,8 @@
+{
+    "name": "example-app",
+    "description": "a really cool app",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "cd noname-backend && npm install && cd .. && cd noname && npm install && npm run build"
+    }
+}

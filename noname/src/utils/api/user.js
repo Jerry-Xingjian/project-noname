@@ -65,7 +65,7 @@ const updateUserProfile = async (userId, profile, password = null) => {
     profilePicture,
   } = profile;
 
-  const res = await axios.put(`${data.rootTemp}/profile/${userId}`, {
+  const res = await axios.put(`${data.rootTemp}/put/profile/${userId}`, {
     bio,
     profilePicture,
     username,
