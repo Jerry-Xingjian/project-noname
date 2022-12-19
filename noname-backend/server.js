@@ -60,7 +60,7 @@ webapp.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../noname/build/index.html'));
 });
 // connect to server
-webapp.listen(port, async () => {
+webapp.listen(process.env.PORT || port, async () => {
   await connect();
   console.log(`Server running on port: ${port}`);
 });
