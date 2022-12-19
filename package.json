@@ -1,8 +1,9 @@
 {
-    "name": "example-app",
+    "name": "noname",
     "description": "a really cool app",
     "version": "1.0.0",
     "scripts": {
-        "build": "cd noname-backend && npm install && cd .. && cd noname && npm install && npm run build"
+        "start": "cd noname-backend && npm install && node server.js",
+        "heroku-postbuild": "cd noname && npm install && DISABLE_ESLINT_PLUGIN=true npm run build"
     }
 }
