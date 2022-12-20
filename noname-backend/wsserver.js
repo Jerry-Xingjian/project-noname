@@ -1,9 +1,13 @@
 const WebSocket = require('ws');
 const jwt = require('jsonwebtoken');
+require('./server');
 require('dotenv').config();
 
 // web socket
-const wss = new WebSocket.Server({ port: 8085, clientTracking: true });
+// const serverOn = webapp;
+const wss = new WebSocket.Server({ port: process.env.PORT + 1 || 8085, clientTracking: true });
+// const wss = new WebSocket.Server({ server: serverOn, clientTracking: true });
+console.log(wss);
 
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();
