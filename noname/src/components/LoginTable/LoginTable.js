@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../utils/api/user';
 import { localGet, localSet } from '../../utils/localStorage';
 
-function LoginTable() {
+function LoginTable(props) {
+  const { showAlert } = props;
   const navigate = useNavigate();
   const MAX_ATTEMPTS = 3;
   const accountLockInfo = localGet('accountInfo') || [{}];
@@ -15,11 +16,13 @@ function LoginTable() {
     const email = document.getElementById('floatingInput').value;
     const password = document.getElementById('floatingPassword').value;
     let lockInfo;
+
     accountLockInfo.forEach((account) => {
       if (account.email === email) {
         lockInfo = account;
       }
     });
+
     if (lockInfo == null && email !== '') {
       accountLockInfo.push({
         email,
@@ -28,14 +31,12 @@ function LoginTable() {
       });
       lockInfo = accountLockInfo[accountLockInfo.length - 1];
     }
-
     // Check if the account is currently locked out
     if (email !== '' && lockInfo.lockoutTime !== null) {
       const timeRemaining = lockInfo.lockoutTime + 60 * 1000 - Date.now();
       if (timeRemaining > 0) {
         localSet('accountInfo', accountLockInfo);
-        // eslint-disable-next-line no-alert
-        alert(`Your account is locked out for ${Math.ceil(timeRemaining / 1000)} seconds. Please try again later.`);
+        showAlert({ show: true, message: `Your account is locked out for ${Math.ceil(timeRemaining / 1000)} seconds. Please try again later.` });
         return;
       }
       // reset the lockoutTime variable to null to allow the user to try logging in again
@@ -53,23 +54,21 @@ function LoginTable() {
       // if user submit the wrong password
       if (err.message.includes(409)) {
         lockInfo.loginAttempts += 1;
-        localSet('accountInfo', accountLockInfo);
-        if (lockInfo.loginAttempts > 2) {
+        if (lockInfo.loginAttempts > MAX_ATTEMPTS - 1) {
           lockInfo.lockoutTime = Date.now();
-          // eslint-disable-next-line no-alert, max-len
-          alert('You have exceeded the maximum number of login attempts. Your account will be locked out for 1 minute.');
+          showAlert({ show: true, message: 'You have exceeded the maximum number of login attempts. Your account will be locked out for 1 minute.' });
         } else {
-          // eslint-disable-next-line no-alert
-          alert(`Invalid username or password. You have ${MAX_ATTEMPTS - lockInfo.loginAttempts} attempts remaining.`);
+          showAlert({ show: true, message: `Invalid username or password. You have ${MAX_ATTEMPTS - lockInfo.loginAttempts} attempts remaining.` });
         }
+        localSet('accountInfo', accountLockInfo);
       } else if (err.message.includes(410)) {
         const index = accountLockInfo.indexOf(lockInfo);
         accountLockInfo.splice(index, 1);
-        // eslint-disable-next-line no-alert
-        alert('This email is not registeed. Check typo or register an account.');
+        showAlert({ show: true, message: 'This email is not registeed. Check typo or register an account.' });
       } else if (err.message.includes(404)) {
-        // eslint-disable-next-line no-alert
-        alert('Missing email or password');
+        showAlert({ show: true, message: 'Missing email or password' });
+      } else {
+        showAlert({ show: true, message: 'Connection refused. Check your internet connection.' });
       }
     }
   };
@@ -124,7 +123,7 @@ function LoginTable() {
       </form>
       <div className="text-center text-black-50 d-flex justify-content-center">
         <p className="my-0 me-1">Need an account?</p>
-        <Link className="text-danger" to="/register">
+        <Link className="text-danger" id="register-here" to="/register">
           <p>Register here!</p>
         </Link>
       </div>

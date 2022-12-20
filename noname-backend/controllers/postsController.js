@@ -3,20 +3,6 @@ const jwt = require('jsonwebtoken');
 const WebSocket = require('ws');
 const dbLib = require('../models/postsModel');
 
-const { JWT_SECRET } = process.env;
-// JSON web token creation
-const serverToken = jwt.sign({
-  name: 'webserver',
-}, JWT_SECRET, { expiresIn: '1h' });
-
-// websocket server url
-const url = 'ws://localhost:8085/';
-
-// websocket connection with jwt
-const connection = new WebSocket(url, {
-  headers: { token: serverToken },
-});
-
 // implement the POST /post endpoint
 const newPost = (async (req, res) => {
   console.log('CREATE a post');
@@ -27,7 +13,19 @@ const newPost = (async (req, res) => {
     res.status(404).json({ message: 'missing userId, media, caption or location.' });
     return;
   }
+  const { JWT_SECRET } = process.env;
+  // JSON web token creation
+  const serverToken = jwt.sign({
+    name: 'webserver',
+  }, JWT_SECRET, { expiresIn: '1h' });
 
+  // websocket server url
+  const url = 'ws://localhost:8085/';
+
+  // websocket connection with jwt
+  const connection = new WebSocket(url, {
+    headers: { token: serverToken },
+  });
   try {
     // create the new user
     const newPostInfo = {
@@ -49,9 +47,10 @@ const newPost = (async (req, res) => {
 });
 
 const getPostByUserId = (async (req, res) => {
-  console.log('GET posts by user ID');
+  const { currentUserId } = req.query;
+  console.log(`GET posts by user ID by user ${currentUserId}`);
   try {
-    const results = await dbLib.getPostByUserId(req.params.id);
+    const results = await dbLib.getPostByUserId(req.params.id, currentUserId);
     res.status(200).json({ data: results });
   } catch (err) {
     res.status(404).json({ message: 'there was an error' });
@@ -61,12 +60,18 @@ const getPostByUserId = (async (req, res) => {
 const editPostByPostId = (async (req, res) => {
   console.log(`UPDATE a post by Post Id ${req.params.id}`);
   try {
-    const inputInfo = {
-      caption: req.body.caption,
-      location: req.body.location,
-      media: req.body.media,
-    };
-    const results = await dbLib.editPostByPostId(req.params.id, inputInfo);
+    let results;
+    if (Object.keys(req.body).length === 1) {
+      results = await dbLib.hidePost(req.params.id, req.body.caption);
+    } else {
+      const inputInfo = {
+        caption: req.body.caption,
+        location: req.body.location,
+        media: req.body.media,
+      };
+      console.log('updating post');
+      results = await dbLib.editPostByPostId(req.params.id, inputInfo);
+    }
     console.log(results);
     res.status(201).json({ response: results });
   } catch (err) {
@@ -87,15 +92,35 @@ const deletePostByPostId = (async (req, res) => {
 
 const getActivityFeed = async (req, res) => {
   console.log('GET activity feed');
-  const { limit, offset } = req.query;
+  const { userId, limit, offset } = req.query;
   try {
-    const allRes = await dbLib.getAllPosts('0', '0');
+    // const allRes = await dbLib.getAllPosts('0', '0');
+    const allRes = await dbLib.getFeedByUserId(userId, '0', '0');
     if (parseInt(limit, 10) + parseInt(offset, 10) > allRes.length) {
-      const leftRes = await dbLib.getAllPosts(limit, offset);
+      // const leftRes = await dbLib.getAllPosts(limit, offset);
+      const leftRes = await dbLib.getFeedByUserId(userId, limit, offset);
       res.status(200).json({ status: 'no more posts', response: leftRes });
       return;
     }
-    const results = await dbLib.getAllPosts(limit, offset);
+    const results = await dbLib.getFeedByUserId(userId, limit, offset);
+    res.status(200).json({ response: results });
+  } catch (err) {
+    res.status(404).json({ message: err });
+  }
+};
+
+const getActivityFeedByUserId = async (req, res) => {
+  console.log(`GET activity feed by UserId ${req.params.id}`);
+  const { limit, offset } = req.query;
+  const userId = req.params.id;
+  try {
+    const allRes = await dbLib.getActivityFeedByUserId(userId, '0', '0');
+    if (parseInt(limit, 10) + parseInt(offset, 10) > allRes.length) {
+      const leftRes = await dbLib.getActivityFeedByUserId(userId, limit, offset);
+      res.status(200).json({ status: 'no more posts', response: leftRes });
+      return;
+    }
+    const results = await dbLib.getActivityFeedByUserId(userId, limit, offset);
     res.status(200).json({ response: results });
   } catch (err) {
     res.status(404).json({ message: err });
@@ -193,6 +218,7 @@ module.exports = {
   editPostByPostId,
   deletePostByPostId,
   getActivityFeed,
+  getActivityFeedByUserId,
   likePost,
   unlikePost,
   getCommentsByPostId,

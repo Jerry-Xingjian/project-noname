@@ -5,11 +5,13 @@ import './Home.css';
 // React Component
 import React, { useState, useEffect, useRef } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import jwtDecode from 'jwt-decode';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // Custom Component
+import { Alert, Container } from 'react-bootstrap';
 import PostSimpleCard from '../../components/PostSimpleCard/PostSimpleCard';
 import RecommendationSection from '../../components/RecommendationSection/RecommendationSection';
 import PostPopupView from '../../components/PostPopupView/PostPopupView';
@@ -19,10 +21,10 @@ import { getCurrentUserProfile } from '../../utils/api/user';
 import { getActivityFeed } from '../../utils/api/activityFeed';
 import { localGet } from '../../utils/localStorage';
 import { timeAgoFormatter } from '../../utils/formatters';
+import { authenticate } from '../../utils/auth';
 
 function Home() {
   const token = localGet('token');
-  const [authFlag, setAuthFlag] = useState(true);
   const limit = 20;
   const offset = useRef(0);
   const [modalShow, setModalShow] = useState(false);
@@ -32,10 +34,14 @@ function Home() {
   const [hasMore, setHasMore] = useState(true);
   const [notifications, setNotifications] = useState([]);
   const callback = useRef(null);
+  const userId = useRef(null);
+  const [authFlag, setAuthFlag] = useState(true);
+  const [showError, setShowError] = useState(true);
+  const navigate = useNavigate();
 
   async function fetchPostData() {
     if (!userInfo._id || posts.length === 0) {
-      const res = await getActivityFeed();
+      const res = await getActivityFeed(userId.current);
       const rawUserData = await getCurrentUserProfile();
       setPosts(res.data.response);
       setUserInfo(rawUserData.data.data);
@@ -45,7 +51,7 @@ function Home() {
   const loadMorePosts = async () => {
     setTimeout(async () => {
       offset.current += limit;
-      const rawPostData = await getActivityFeed(limit, offset.current);
+      const rawPostData = await getActivityFeed(userId.current, limit, offset.current);
       if (rawPostData.data.status === 'no more posts') {
         setHasMore(false);
       }
@@ -54,12 +60,21 @@ function Home() {
     }, 1000);
   };
 
+  async function fetchPosts() {
+    const res = await getActivityFeed(userId.current);
+    setPosts(res.data.response);
+  }
+
   useEffect(() => {
     if (token === null) {
       setAuthFlag(false);
-    } else {
-      fetchPostData();
+      navigate('/login');
+      return;
     }
+    const decoded = jwtDecode(token);
+    userId.current = decoded.id;
+    fetchPostData();
+
     setupWSConnection(setNotifications);
   }, [userInfo]);
 
@@ -75,11 +90,8 @@ function Home() {
     callback.current = callbackFunc;
   };
 
-  if (authFlag === false) {
-    return <Navigate replace to="/login" />;
-  }
   const closePostHandler = async () => {
-    const res = await getActivityFeed();
+    const res = await getActivityFeed(userId.current);
     setPosts(res.data.response);
     setModalShow(false);
   };
@@ -93,6 +105,41 @@ function Home() {
     newNotifications.push(closingNotifications[0]);
     setNotifications(newNotifications);
   };
+
+  // Function to hide the error message
+  const hideError = () => {
+    setShowError(false);
+  };
+
+  setInterval(() => {
+    if (authenticate() === false) {
+      setAuthFlag(false);
+    }
+  }, 1000);
+
+  if (authFlag === false) {
+    return (
+      <Container
+        className="d-flex align-items-center justify-content-center text-center min-vh-100"
+      >
+        {showError
+        && (
+        <Alert
+          variant="danger"
+          onClose={hideError}
+          dismissible
+        >
+          Your session has expired. Please
+          {' '}
+
+          <Alert.Link href="/login"> login </Alert.Link>
+          {' '}
+          again.
+        </Alert>
+        )}
+      </Container>
+    );
+  }
 
   return (
     <div className="home">
@@ -157,6 +204,7 @@ function Home() {
                         openPost={openPost}
                         postInfo={post}
                         userInfo={userInfo}
+                        fetchPosts={() => fetchPosts()}
                       />
                     ))
                   }

@@ -2,7 +2,6 @@
 const { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const alert = require('alert');
 const console = require('console');
 const { getDB } = require('../dbConnection');
 const { addRcmd } = require('./rcmd');
@@ -53,7 +52,7 @@ const login = async (userInfo) => {
     if (await bcrypt.compare(userInfo.password, user.password)) {
       const token = jwt.sign({
         id: user._id,
-      }, JWT_SECRET);
+      }, JWT_SECRET, { expiresIn: '120s' });
       return token;
     }
     // alert('Password does not match.');
@@ -73,8 +72,8 @@ const register = async (newUser) => {
     const checkDup = await getUserByEmail(newUser);
     if (checkDup != null) {
       console.log(checkDup);
-      alert('duplicate username');
-      throw new Error('dulplicate username');
+      // alert('duplicate username');
+      throw new Error('duplicate username');
     }
 
     const encryptPassword = await bcrypt.hash(newUser.password, 10);
@@ -92,7 +91,7 @@ const register = async (newUser) => {
     const user = await getUserByEmail(newUser);
     const token = jwt.sign({
       id: user._id,
-    }, JWT_SECRET);
+    }, JWT_SECRET, { expiresIn: '120s' });
     await addDefaultRcmd(user._id);
     console.log(`Users: ${JSON.stringify(result)}`);
     return token;

@@ -33,17 +33,17 @@ function RecommendationCard(props) {
         alt="Avatar"
         mode="aspectFit"
       />
-      <div className="card-body mx-2">
+      <div className="card-body mx-2" id="direct-profile-page">
         <Link to={`/profile/${recommendedInfo._id}`} className="text-decoration-none" role="presentation">
-          <h6 className="card-title mt-1">{ recommendedInfo.username }</h6>
+          <h6 className="card-title mt-1" id="username-id">{ recommendedInfo.username }</h6>
           <div className="card-text"><small className="text-muted d-inline-block text-truncate">{ recommendedInfo.bio }</small></div>
         </Link>
       </div>
       {
         isFollowed ? (
-          <button type="button" className="btn btn-link text-decoration-none text-secondary" onClick={handleUnfollow}>Unfollow</button>
+          <button type="button" id="unfollow-btn" className="btn btn-link text-decoration-none text-secondary" onClick={handleUnfollow}>Unfollow</button>
         ) : (
-          <button type="button" className="btn btn-link text-decoration-none" onClick={handleFollow}>Follow</button>
+          <button type="button" id="follow-btn" className="btn btn-link text-decoration-none" onClick={handleFollow}>Follow</button>
         )
       }
     </div>

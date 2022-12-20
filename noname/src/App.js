@@ -10,9 +10,9 @@ import Navbar from './components/Navbar/Navbar';
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Home from './views/Home/Home';
+
 import UserProfile from './views/UserProfile/UserProfile';
 import EditProfile from './views/EditProfile/EditProfile';
-// import { localRemove } from './utils/localStorage';
 
 function App() {
   return (

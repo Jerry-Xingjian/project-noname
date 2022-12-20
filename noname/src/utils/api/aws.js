@@ -27,7 +27,6 @@ const uploadFile = (file) => {
     url: `https://nonome-project-media.s3.amazonaws.com/${fileName}`,
     type: 'image',
   };
-  // console.log(obj);
   return obj;
 };
 
