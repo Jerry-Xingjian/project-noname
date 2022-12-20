@@ -1,5 +1,5 @@
 const console = require('console');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const WebSocket = require('ws');
 const dbLib = require('../models/postsModel');
 
@@ -13,11 +13,11 @@ const newPost = (async (req, res) => {
     res.status(404).json({ message: 'missing userId, media, caption or location.' });
     return;
   }
-  // const { JWT_SECRET } = process.env;
-  // // JSON web token creation
-  // const serverToken = jwt.sign({
-  //   name: 'webserver',
-  // }, JWT_SECRET, { expiresIn: '1h' });
+  const { JWT_SECRET } = process.env;
+  // JSON web token creation
+  const serverToken = jwt.sign({
+    name: 'webserver',
+  }, JWT_SECRET, { expiresIn: '1h' });
 
   // websocket server url
   const url = process.env.NODE_ENV === 'production'
@@ -36,7 +36,9 @@ const newPost = (async (req, res) => {
     // Notify WS Server to update all connected clients
     const msg = { type: 'new post', data: results };
     // websocket connection with jwt
-    const connection = new WebSocket(url);
+    const connection = new WebSocket(url, {
+      headers: { token: serverToken },
+    });
     connection.onopen = () => {
       connection.send(JSON.stringify(msg));
     };
