@@ -13,6 +13,7 @@ const setupWSConnection = (setNotifications) => {
     return;
   }
 
+  // init websocket
   const socket = new WebSocket(
     process.env.NODE_ENV === 'development'
       ? 'ws://localhost:8080'

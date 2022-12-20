@@ -4,7 +4,7 @@ describe('Test follow a user', () => {
   it('passes if we can login', () => {
     cy.clearLocalStorage();
     // launch the noname web app
-    cy.visit('http://localhost:3000/')
+    cy.visit('https://noname-test-version-1.herokuapp.com')
 
     // check that the button with caption 'Login' exists
     cy.get('button').contains('Login')
