@@ -13,15 +13,6 @@ const setupWSConnection = (setNotifications) => {
     return;
   }
 
-  // Create WebSocket connection
-  const url = process.env.NODE_ENV === 'production'
-    ? 'wss://noname-test-version-1.herokuapp.com/'
-    : 'ws://localhost:8080/';
-
-  // const url = 'ws://localhost:8085/'
-  // const HOST = window.origin.replace('https', 'wss');
-  console.log(url);
-  console.log(window.location.hostname);
   const socket = new WebSocket(
     process.env.NODE_ENV === 'development'
       ? 'ws://localhost:8080'

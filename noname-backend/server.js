@@ -78,11 +78,8 @@ server.listen(process.env.PORT || 8080, async () => {
 // const wss = new WebSocket.Server({ noServer: true });
 const wss = new WebSocket.Server({ server });
 
-console.log(wss);
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();
-
-console.log(connectedUsers);
 
 // connection event
 wss.on('connection', (ws, req) => {
