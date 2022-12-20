@@ -1,8 +1,13 @@
 import axios from 'axios';
 // General information / configuration for the API
 const root = 'https://635be95f8aa87edd91548d12.mockapi.io/5570/Group9';
-// root for part of the backend
-const rootTemp = 'http://localhost:8080';
+// root for part of the backen
+
+// const rootTemp = 'http://localhost:8080';
+
+const rootTemp = process.env.NODE_ENV === 'production'
+  ? 'https://noname-test-version-1.herokuapp.com'
+  : 'http://localhost:8080';
 
 // Add the token to all HTTP request
 const setHeaders = () => {

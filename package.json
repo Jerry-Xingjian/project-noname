@@ -3,8 +3,8 @@
   "description": "a really cool web app",
   "version": "1.0.0",
   "scripts": {
-      "start": "cd noname-backend && npm install && node server.js",
-      "heroku-postbuild": "cd noname && npm install && DISABLE_ESLINT_PLUGIN=true npm run build"
+    "start": "cd noname-backend && npm install && node server.js",
+    "heroku-postbuild": "cd noname && npm install && DISABLE_ESLINT_PLUGIN=true npm run build"
   },
   "dependencies": {
     "cypress": "^12.1.0"
