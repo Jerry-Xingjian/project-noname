@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const console = require('console');
 const path = require('path');
-const { Server } = require('ws');
+const WebSocket = require('ws');
 const jwt = require('jsonwebtoken');
 // const WebSocket = require('ws');
 // // security feature. JSON web token - https://jwt.io
@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const webapp = express();
-const http = require('http');
+// const http = require('http');
 const { connect } = require('./dbConnection');
 // Find the JWT_SECRET inthe document
 // const { JWT_SECRET } = process.env;
@@ -68,12 +68,16 @@ webapp.listen(process.env.PORT || 8080, async () => {
   console.log(`Server running on port: ${port}`);
 });
 
-const server = http.createServer(webapp);
+// const serverNum = webapp;
 
-const wss = new Server({ server });
+const url = 'wss://noname-test-version-1.herokuapp.com';
+const wss = new WebSocket.Server({ server: webapp, clientTracking: true, url });
 
+console.log(wss);
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();
+
+console.log(connectedUsers);
 
 // connection event
 wss.on('connection', (ws, req) => {
