@@ -10,7 +10,7 @@ const login = async (email, password) => {
     const response = await axios.post(`${data.rootTemp}/users/login`, { email, password });
     // store the token
     localSet('token', response.data.token);
-    return response.data;
+    return response;
   } catch (err) {
     throw new Error(err);
   }
@@ -65,7 +65,7 @@ const updateUserProfile = async (userId, profile, password = null) => {
     profilePicture,
   } = profile;
 
-  const res = await axios.put(`${data.rootTemp}/put/profile/${userId}`, {
+  const res = await axios.put(`${data.rootTemp}/profile/${userId}`, {
     bio,
     profilePicture,
     username,

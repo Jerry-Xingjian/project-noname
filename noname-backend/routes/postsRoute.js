@@ -8,6 +8,7 @@ router.put('/post/:id', postsController.editPostByPostId);
 router.delete('/post/:id', postsController.deletePostByPostId);
 router.get('/posts/:id', postsController.getPostByUserId);
 router.get('/activity_feed', postsController.getActivityFeed);
+router.get('/activity_feed/:id', postsController.getActivityFeedByUserId);
 router.put('/like', postsController.likePost);
 router.put('/unlike', postsController.unlikePost);
 router.get('/comments/:postId', postsController.getCommentsByPostId);

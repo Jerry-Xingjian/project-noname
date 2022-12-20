@@ -66,7 +66,7 @@ function Navbar() {
 
                     <div className={`menu-icon d-flex justify-content-around ${hideMenu.current ? 'd-none' : ''}`}>
                       {/* Add route links here on each icon */}
-                      <Link className="btn btn-link btn-sm" to="/home">
+                      <Link className="btn btn-link btn-sm" id="home-page-btn" to="/home">
                         <img src="https://nonome-project-media.s3.amazonaws.com/icons/global.svg" alt="menu" />
                       </Link>
                       <button type="button" className="btn btn-link btn-sm" onClick={() => setShowGlobalNewPostPopup(true)}>

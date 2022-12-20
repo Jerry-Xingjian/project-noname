@@ -2,9 +2,11 @@ import { React, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './EditProfilePage.css';
 import Modal from 'react-bootstrap/Modal';
+import { Alert, Container } from 'react-bootstrap';
 import ImageUploader from '../ImageUploader/ImageUploader';
 import { getCurrentUserProfile, updateUserProfile } from '../../utils/api/user';
 import uploadFile from '../../utils/api/aws';
+import { authenticate } from '../../utils/auth';
 
 function EditProfilePage(props) {
   const { userId } = props;
@@ -13,6 +15,19 @@ function EditProfilePage(props) {
   const [newImage, setNewImage] = useState('');
   const [tempPic, setTempPic] = useState('');
   const navigate = useNavigate();
+  const [authFlag, setAuthFlag] = useState(true);
+  const [showError, setShowError] = useState(true);
+
+  setInterval(() => {
+    if (authenticate() === false) {
+      setAuthFlag(false);
+    }
+  }, 1000);
+
+  // Function to hide the error message
+  const hideError = () => {
+    setShowError(false);
+  };
 
   async function fetchProfileData() {
     const rawUserData = await getCurrentUserProfile();
@@ -65,6 +80,30 @@ function EditProfilePage(props) {
     pic = userProfileData.profilePicture;
   } else {
     pic = tempPic;
+  }
+
+  if (authFlag === false) {
+    return (
+      <Container
+        className="d-flex align-items-center justify-content-center text-center min-vh-100"
+      >
+        {showError
+        && (
+        <Alert
+          variant="danger"
+          onClose={hideError}
+          dismissible
+        >
+          Your session has expired. Please
+          {' '}
+
+          <Alert.Link href="/login"> login </Alert.Link>
+          {' '}
+          again.
+        </Alert>
+        )}
+      </Container>
+    );
   }
 
   return (

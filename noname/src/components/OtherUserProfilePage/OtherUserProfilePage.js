@@ -1,8 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './OtherUserProfilePage.css';
 import jwtDecode from 'jwt-decode';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { Alert, Container } from 'react-bootstrap';
 import { localGet } from '../../utils/localStorage';
 // import NewPostPopup from '../NewPostPopup/NewPostPopup';
 import PostSimpleCard from '../PostSimpleCard/PostSimpleCard';
@@ -10,6 +11,7 @@ import { getUserByUserId, getCurrentUserProfile } from '../../utils/api/user';
 import { getPostsByUserId } from '../../utils/api/post';
 import PostPopupView from '../PostPopupView/PostPopupView';
 import { follow, unfollow } from '../../utils/api/follow';
+import { authenticate } from '../../utils/auth';
 
 function OtherUserProfilePage(props) {
   const { userId } = props;
@@ -18,14 +20,40 @@ function OtherUserProfilePage(props) {
   const [showPostPopup, setShowPostPopup] = useState(false);
   const [posts, setPosts] = useState([]);
   const [selectedPostInfo, setSelectedPostInfo] = useState({});
+  const [authFlag, setAuthFlag] = useState(true);
+  const [showError, setShowError] = useState(true);
+
+  setInterval(() => {
+    if (authenticate() === false) {
+      setAuthFlag(false);
+    }
+  }, 1000);
+
+  // Function to hide the error message
+  const hideError = () => {
+    setShowError(false);
+  };
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
+  const callback = useRef(null);
 
   async function fetchProfileData() {
     const res = await getUserByUserId(userId);
     setUserProfileData(res.data.data);
   }
 
+  async function fetchCurrentUser() {
+    const token = localGet('token');
+    const decoded = jwtDecode(token);
+    const currentUserId = decoded.id;
+    const currentUser = await getUserByUserId(currentUserId);
+    setCurrentUserInfo(currentUser.data.data);
+  }
+
   async function fetchPostData() {
-    const feed = await getPostsByUserId(userId);
+    const token = localGet('token');
+    const decoded = jwtDecode(token);
+    const currentUserId = decoded.id;
+    const feed = await getPostsByUserId(userId, currentUserId);
     setPosts(feed.data.data);
   }
 
@@ -42,14 +70,23 @@ function OtherUserProfilePage(props) {
   }
 
   useEffect(() => {
+    fetchCurrentUser();
     fetchProfileData();
     fetchFollowStatus();
     fetchPostData();
+    // console.log(currentUserInfo);
   }, []);
+
+  const callbackHandler = (callbackFunc) => {
+    callback.current = callbackFunc;
+  };
 
   const openPost = (postInfo) => {
     setSelectedPostInfo(postInfo);
     setShowPostPopup(true);
+    setTimeout(() => {
+      callback.current();
+    }, 1000);
   };
 
   const followClicked = async () => {
@@ -63,6 +100,30 @@ function OtherUserProfilePage(props) {
     }
     setIsFollowed(!isFollowed);
   };
+
+  if (authFlag === false) {
+    return (
+      <Container
+        className="d-flex align-items-center justify-content-center text-center min-vh-100"
+      >
+        {showError
+        && (
+        <Alert
+          variant="danger"
+          onClose={hideError}
+          dismissible
+        >
+          Your session has expired. Please
+          {' '}
+
+          <Alert.Link href="/login"> login </Alert.Link>
+          {' '}
+          again.
+        </Alert>
+        )}
+      </Container>
+    );
+  }
 
   return (
     <div className="container w-75">
@@ -80,7 +141,7 @@ function OtherUserProfilePage(props) {
                   </h2>
                 </div>
                 <div className="col offset-md-3 mt-2">
-                  <button className="btn btn-outline-primary btn-sm" type="button" id="btn-follow" onClick={followClicked}>
+                  <button className="btn btn-outline-primary btn-sm" type="button" id="btn-follow-profile" onClick={followClicked}>
                     {
                       isFollowed
                         ? 'UnFollow'
@@ -144,6 +205,7 @@ function OtherUserProfilePage(props) {
                           openPost={openPost}
                           postInfo={post}
                           userInfo={userProfileData}
+                          fetchPosts={() => window.location.reload()}
                         />
                       ))
                     }
@@ -160,9 +222,10 @@ function OtherUserProfilePage(props) {
       </div>
       <PostPopupView
         show={showPostPopup}
+        callbackAfterShow={callbackHandler}
         onHide={() => setShowPostPopup(false)}
         postInfo={selectedPostInfo}
-        userInfo={userProfileData}
+        userInfo={currentUserInfo}
       />
     </div>
   );

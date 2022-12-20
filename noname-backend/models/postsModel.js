@@ -27,10 +27,31 @@ const newPost = async (newPostInfo) => {
   }
 };
 
-const getPostByUserId = async (userId) => {
+const getPostByUserId = async (userId, currentUserId) => {
   try {
     const db = await getDB();
-    const result = await db.collection('Post').find({ belongUserId: ObjectId(userId) }).toArray();
+    let result;
+    if (userId === currentUserId) {
+      result = await db.collection('Post').find({ belongUserId: ObjectId(userId) }).toArray();
+    } else {
+      result = await db.collection('Post').find({ $and: [{ belongUserId: ObjectId(userId) }, { hideFrom: { $ne: ObjectId(currentUserId) } }] }).toArray();
+    }
+    return result;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const getFeedByUserId = async (userId, limit, offset) => {
+  try {
+    const db = await getDB();
+    const user = await db.collection('User').findOne({ _id: ObjectId(userId) });
+    const userFollowings = user.followings;
+    const result = await db.collection('Post')
+      .find({ $and: [{ belongUserId: { $in: userFollowings } }, { hideFrom: { $ne: ObjectId(userId) } }]})
+      .skip(parseInt(offset, 10))
+      .limit(parseInt(limit, 10))
+      .toArray();
     return result;
   } catch (err) {
     throw new Error(err);
@@ -48,6 +69,29 @@ const editPostByPostId = async (postId, inputInfo) => {
           caption: inputInfo.caption == null ? post.caption : inputInfo.caption,
           location: inputInfo.location == null ? post.location : inputInfo.location,
           media: inputInfo.media == null ? post.media : inputInfo.media,
+          updateAt: new Date(),
+        },
+      },
+    );
+    const editedPost = await db.collection('Post').findOne({ _id: ObjectId(postId) });
+    return editedPost;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const hidePost = async (postId, userId) => {
+  // console.log('hiding a post from user');
+  try {
+    const db = await getDB();
+    // const post = await db.collection('Post').findOne({ _id: ObjectId(postId) });
+    await db.collection('Post').updateOne(
+      { _id: ObjectId(postId) },
+      {
+        $push: {
+          hideFrom: ObjectId(userId),
+        },
+        $set: {
           updateAt: new Date(),
         },
       },
@@ -125,6 +169,30 @@ const getAllPosts = async (limit, offset) => {
     throw new Error(err);
   }
 };
+
+const getActivityFeedByUserId = async (userId, limit, offset) => {
+  try {
+    const db = await getDB();
+    const posts = await db.collection('Post')
+      .find({ hideFrom: { $ne: ObjectId(userId) } })
+      .skip(parseInt(offset, 10))
+      .limit(parseInt(limit, 10))
+      .toArray();
+    return posts;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+// const updateAllPosts = async () => {
+//   try {
+//     const db = await getDB();
+//     const posts = await db.collection('Post').updateMany({}, {$set:{"hideFrom": []}})
+//     return posts;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// };
 
 const getCommentsByPostId = async (postId) => {
   try {
@@ -214,12 +282,16 @@ module.exports = {
   newPost,
   getPostByUserId,
   editPostByPostId,
+  hidePost,
   deletePostByPostId,
   getAllPosts,
+  getActivityFeedByUserId,
+  // updateAllPosts,
   likePostByPostId,
   unlikePostByPostId,
   getCommentsByPostId,
   newComment,
   editCommentByCommentId,
   deleteCommentByCommentId,
+  getFeedByUserId,
 };
