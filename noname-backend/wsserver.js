@@ -1,13 +1,15 @@
 const WebSocket = require('ws');
 const jwt = require('jsonwebtoken');
-require('./server');
-require('dotenv').config();
+const server = require('./server');
 
+// console.log(server);
+// require('dotenv').config();
 // web socket
 // const serverOn = webapp;
 // eslint-disable-next-line max-len
-const wss = new WebSocket.Server({ port: Math.round((65536 * 65536) / process.env.PORT) || 8085, clientTracking: true });
+// const wss = new WebSocket.Server({ port: Math.round((65536 * 65536) / process.env.PORT) || 8085, clientTracking: true });
 // const wss = new WebSocket.Server({ server: serverOn, clientTracking: true });
+const wss = new WebSocket.Server({ server });
 
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();

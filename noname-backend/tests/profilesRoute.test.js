@@ -18,14 +18,14 @@ webapp.use('/', usersRouter);
 let mongo;
 
 // get a user's profile
-describe('GET /profile/:id endpoint tests,', () => {
+describe('GET /get/profile/:id endpoint tests,', () => {
   let response; // the response frome our express server
   let testId;
 
   beforeAll(async () => {
     mongo = await connect();
     testId = '638c4bf8cdb37cd8710a5ba0';
-    response = await request(webapp).get(`/profile/${testId}`);
+    response = await request(webapp).get(`/get/profile/${testId}`);
   });
 
   afterAll(async () => {
