@@ -21,8 +21,8 @@ const newPost = (async (req, res) => {
 
   // websocket server url
   const url = process.env.NODE_ENV === 'production'
-    ? 'ws://noname-test-version-1.herokuapp.com'
-    : 'ws://localhost:8085/';
+    ? 'wss://noname-test-version-1.herokuapp.com'
+    : 'wss://localhost:8085/';
   // const url = 'ws://localhost:8085/';
 
   // websocket connection with jwt

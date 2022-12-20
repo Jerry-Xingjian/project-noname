@@ -48,6 +48,7 @@ const getFeedByUserId = async (userId, limit, offset) => {
     const user = await db.collection('User').findOne({ _id: ObjectId(userId) });
     const userFollowings = user.followings;
     const result = await db.collection('Post')
+      // eslint-disable-next-line max-len
       .find({ $and: [{ belongUserId: { $in: userFollowings } }, { hideFrom: { $ne: ObjectId(userId) } }] })
       .skip(parseInt(offset, 10))
       .limit(parseInt(limit, 10))
