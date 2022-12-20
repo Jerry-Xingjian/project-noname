@@ -84,7 +84,7 @@ describe('PUT /profile/:id endpoint tests', () => {
       followings: user.followings,
       token: tokenObj,
     };
-    response = await request(webapp).put(`/profile/${testId}`).send(requestBody);
+    response = await request(webapp).put(`/edit/profile/${testId}`).send(requestBody);
     console.log(response.res.text);
   });
 
@@ -117,7 +117,7 @@ describe('PUT /profile/:id endpoint tests', () => {
   });
 
   test('missing token 404', async () => {
-    const res = await request(webapp).put(`/profile/${testId}`)
+    const res = await request(webapp).put(`/edit/profile/${testId}`)
       .send('password=1234567');
     expect(res.status).toEqual(404);
   });

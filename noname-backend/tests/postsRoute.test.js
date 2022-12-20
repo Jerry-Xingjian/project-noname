@@ -30,7 +30,7 @@ let mongo;
 //       caption: 'this is a test for new post',
 //       location: 'this is a test',
 //     };
-//     response = await request(webapp).post('/posts').send(requestBody);
+//     response = await request(webapp).post('/posts/newposts').send(requestBody);
 //   });
 
 //   const clearDatabase = async () => {
@@ -72,7 +72,7 @@ let mongo;
 //       media: [],
 //       caption: 'this is a test123',
 //     };
-//     const res = await request(webapp).post('/posts')
+//     const res = await request(webapp).post('/posts/newposts')
 //       .send(requestBody404);
 //     expect(res.status).toEqual(404);
 //   });
