@@ -1,5 +1,5 @@
 const console = require('console');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const WebSocket = require('ws');
 const dbLib = require('../models/postsModel');
 
@@ -13,21 +13,17 @@ const newPost = (async (req, res) => {
     res.status(404).json({ message: 'missing userId, media, caption or location.' });
     return;
   }
-  const { JWT_SECRET } = process.env;
-  // JSON web token creation
-  const serverToken = jwt.sign({
-    name: 'webserver',
-  }, JWT_SECRET, { expiresIn: '1h' });
+  // const { JWT_SECRET } = process.env;
+  // // JSON web token creation
+  // const serverToken = jwt.sign({
+  //   name: 'webserver',
+  // }, JWT_SECRET, { expiresIn: '1h' });
 
   // websocket server url
   const url = process.env.NODE_ENV === 'production'
     ? 'wss://noname-test-version-1.herokuapp.com'
     : 'ws://localhost:8080';
 
-  // websocket connection with jwt
-  const connection = new WebSocket(url, {
-    headers: { token: serverToken },
-  });
   try {
     // create the new user
     const newPostInfo = {
@@ -39,7 +35,12 @@ const newPost = (async (req, res) => {
     const results = await dbLib.newPost(newPostInfo);
     // Notify WS Server to update all connected clients
     const msg = { type: 'new post', data: results };
-    connection.send(JSON.stringify(msg));
+    // websocket connection with jwt
+    const connection = new WebSocket(url);
+    connection.onopen = () => {
+      connection.send(JSON.stringify(msg));
+    };
+    // connection.send(JSON.stringify(msg));
     // send the response with the appropirate status code
     // status 201 means created success
     res.status(201).json({ data: results });
