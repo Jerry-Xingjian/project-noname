@@ -5,7 +5,8 @@ require('dotenv').config();
 
 // web socket
 // const serverOn = webapp;
-const wss = new WebSocket.Server({ port: process.env.PORT + 1 || 8085, clientTracking: true });
+// eslint-disable-next-line max-len
+const wss = new WebSocket.Server({ port: Math.round((65536 * 65536) / process.env.PORT) || 8085, clientTracking: true });
 // const wss = new WebSocket.Server({ server: serverOn, clientTracking: true });
 console.log(wss);
 
