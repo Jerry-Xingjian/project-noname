@@ -3,10 +3,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // web socket
-const portNum = process.env.NODE_ENV === 'production'
-  ? process.env.PORT
-  : 8085;
-const wss = new WebSocket.Server({ port: portNum, clientTracking: true });
+const wss = new WebSocket.Server({ port: 8085, clientTracking: true });
 
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();
