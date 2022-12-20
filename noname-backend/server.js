@@ -67,9 +67,7 @@ webapp.listen(process.env.PORT || 8080, async () => {
   console.log(`Server running on port: ${port}`);
 });
 
-const server = webapp;
-
-const wss = new Server({ server });
+const wss = new Server({ server: webapp });
 
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();
