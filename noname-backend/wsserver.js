@@ -1,5 +1,6 @@
 const WebSocket = require('ws');
 const jwt = require('jsonwebtoken');
+const console = require('console');
 const server = require('./server');
 
 // web socket

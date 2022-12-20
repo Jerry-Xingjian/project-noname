@@ -6,7 +6,7 @@ const root = 'https://635be95f8aa87edd91548d12.mockapi.io/5570/Group9';
 // const rootTemp = 'http://localhost:8080';
 
 const rootTemp = process.env.NODE_ENV === 'production'
-  ? 'https://noname-test-version-1.herokuapp.com'
+  ? 'https://noname-webapp-version-2.herokuapp.com'
   : 'http://localhost:8080';
 
 // Add the token to all HTTP request

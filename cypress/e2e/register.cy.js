@@ -7,7 +7,7 @@ describe('Test register a user', () => {
   it('passes when we can register a new user', () => {
     cy.clearLocalStorage();
     // launch the noname web app
-    cy.visit('https://noname-test-version-1.herokuapp.com')
+    cy.visit('https://noname-webapp-version-2.herokuapp.com')
 
     cy.get('#register-here').click()
     cy.wait(1000)

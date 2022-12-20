@@ -21,7 +21,7 @@ const newPost = (async (req, res) => {
 
   // websocket server url
   const url = process.env.NODE_ENV === 'production'
-    ? 'wss://noname-test-version-1.herokuapp.com'
+    ? 'wss://noname-webapp-version-2.herokuapp.com'
     : 'ws://localhost:8080';
 
   try {
