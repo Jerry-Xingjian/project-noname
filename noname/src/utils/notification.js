@@ -21,7 +21,13 @@ const setupWSConnection = (setNotifications) => {
   // const url = 'ws://localhost:8085/'
   // const HOST = window.origin.replace('https', 'wss');
   console.log(url);
-  const socket = new WebSocket(url);
+  console.log(window.location.hostname);
+  const socket = new WebSocket(
+    process.env.NODE_ENV === 'development'
+      ? 'ws://localhost:8080'
+      : `wss://${window.location.hostname}`,
+    token,
+  );
 
   // Connection opened
   socket.addEventListener('open', () => {

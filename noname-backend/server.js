@@ -70,8 +70,9 @@ webapp.listen(process.env.PORT || 8080, async () => {
 
 // const serverNum = webapp;
 
-const url = 'wss://noname-test-version-1.herokuapp.com';
-const wss = new WebSocket.Server({ server: webapp, clientTracking: true, url });
+// const url = 'wss://noname-test-version-1.herokuapp.com';
+// const wss = new WebSocket.Server({ noServer: true });
+const wss = new WebSocket.Server({ server: webapp, clientTracking: true });
 
 console.log(wss);
 // Map of connected clients (user - client id) pairs
