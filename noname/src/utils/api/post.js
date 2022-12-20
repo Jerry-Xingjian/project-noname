@@ -13,7 +13,7 @@ const getPostsByUserId = async (userId, currentUserId) => {
 
 const addPost = async (userId, media, caption, location) => {
   try {
-    const response = await axios.post(`${data.rootTemp}/post/newposts`, {
+    const response = await axios.post(`${data.rootTemp}/posts/newposts/post`, {
       userId,
       // content need to be updated here with a post details
       media,
