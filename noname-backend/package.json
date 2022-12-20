@@ -9,7 +9,8 @@
   "scripts": {
     "lint": "eslint --ignore-pattern *.test.js --ignore-pattern *.test.jsx ",
     "start": "node server.js",
-    "test": "jest --coverage --runInBand"
+    "test": "jest --coverage --runInBand",
+    "seed": "node ./models/seed.js"
   },
   "keywords": [
     "nodejs",

@@ -64,7 +64,12 @@ const creatUser = (async (req, res) => {
     // status 201 means created success
     res.status(201).json({ token: response });
   } catch (err) {
-    res.status(409).json({ message: err });
+    const text = err.message.toString();
+    if (text.includes('duplicate')) {
+      res.status(410).send({ Error: 'Duplicate email!' });
+    } else {
+      res.status(409).json({ message: err });
+    }
   }
 });
 

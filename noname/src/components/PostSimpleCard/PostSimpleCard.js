@@ -1,18 +1,25 @@
 /* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 import { React, useEffect, useState } from 'react';
+import jwtDecode from 'jwt-decode';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PostSimpleCard.css';
 import Carousel from 'react-bootstrap/Carousel';
 // import Placeholder from 'react-bootstrap/Placeholder';
 import uuid from 'react-uuid';
+import { localGet } from '../../utils/localStorage';
 import { nFormatter } from '../../utils/formatters';
-import { likePost, unlikePost } from '../../utils/api/post';
+import { likePost, unlikePost, updatePost } from '../../utils/api/post';
 import { getUserByUserId } from '../../utils/api/user';
 
 function PostSimpleCard(props) {
   const [heartClicked, setHeartClicked] = useState(false);
-  const { openPost, postInfo: post, userInfo } = props;
+  const {
+    openPost,
+    postInfo: post,
+    userInfo,
+    fetchPosts,
+  } = props;
   const [postInfo, setPostInfo] = useState(() => ({
     ...post,
     like_count_str: nFormatter(post.likeInfo.length, 1),
@@ -33,6 +40,15 @@ function PostSimpleCard(props) {
   useEffect(() => {
     fetchPostData();
   }, [post]);
+
+  const handleHideClicked = () => {
+    // console.log('clicked');
+    const token = localGet('token');
+    const decoded = jwtDecode(token);
+    const currentUserId = decoded.id;
+    updatePost(postInfo._id, currentUserId);
+    fetchPosts();
+  };
 
   const clickHeartHandler = async () => {
     setHeartClicked(!heartClicked);
@@ -119,6 +135,9 @@ function PostSimpleCard(props) {
                 </svg> */}
               </div>
               <div className="d-flex justify-content-between align-items-center">
+                <button className="btn btn-link btn-sm" type="button" onClick={() => handleHideClicked()}>
+                  <img src="https://nonome-project-media.s3.amazonaws.com/eye-slash.svg" width="32" height="32" alt="Hide" />
+                </button>
                 <svg onClick={clickHeartHandler} className={`action-icon heart me-1 ${heartClicked ? 'active' : ''}`} width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.3679 21.6769C13.0138 21.8019 12.4304 21.8019 12.0763 21.6769C9.05542 20.6457 2.30542 16.3436 2.30542 9.05192C2.30542 5.83317 4.89917 3.229 8.09709 3.229C9.99292 3.229 11.67 4.14567 12.7221 5.56234C13.7742 4.14567 15.4617 3.229 17.3471 3.229C20.545 3.229 23.1388 5.83317 23.1388 9.05192C23.1388 16.3436 16.3888 20.6457 13.3679 21.6769Z" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

@@ -1,7 +1,15 @@
 .background {
-    background: url(https://nonome-project-media.s3.amazonaws.com/BG-min.png) center center/cover no-repeat;
-    height: calc(100vh - 3.875rem);
-    position: absolute;
-    top: 3.875rem;
-    width: 100%;
+  background: url(https://nonome-project-media.s3.amazonaws.com/BG-min.png) center center/cover no-repeat;
+  height: calc(100vh - 3.875rem);
+  position: absolute;
+  top: 3.875rem;
+  width: 100%;
+}
+
+.background.login .login-alert{
+  position: absolute;
+  margin: 1rem;
+  left: 0;
+  right: 0;
+  text-align: center;
 }

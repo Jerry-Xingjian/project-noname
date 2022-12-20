@@ -2,12 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './UserProfilePage.css';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { Alert, Container } from 'react-bootstrap';
 import { getCurrentUserProfile } from '../../utils/api/user';
 import { getPostsByUserId } from '../../utils/api/post';
 import ProfilePostCard from '../ProfilePostCard/ProfilePostCard';
 import NewPostPopup from '../NewPostPopup/NewPostPopup';
 import EditPostPopup from '../EditPostPopup/EditPostPopup';
 import PostPopupView from '../PostPopupView/PostPopupView';
+import { authenticate } from '../../utils/auth';
 
 function UserProfilePage(props) {
   const { userId } = props;
@@ -17,6 +19,20 @@ function UserProfilePage(props) {
   const [showPostPopup, setShowPostPopup] = useState(false);
   const [selectedPostInfo, setSelectedPostInfo] = useState({});
   const [posts, setPosts] = useState([]);
+  const [authFlag, setAuthFlag] = useState(true);
+  const [showError, setShowError] = useState(true);
+
+  setInterval(() => {
+    if (authenticate() === false) {
+      setAuthFlag(false);
+    }
+  }, 1000);
+
+  // Function to hide the error message
+  const hideError = () => {
+    setShowError(false);
+  };
+  const callback = useRef(null);
 
   const firstRender = useRef(true);
 
@@ -26,8 +42,12 @@ function UserProfilePage(props) {
     // console.log(`'edit clicked'${postId}`);
   };
 
+  const callbackHandler = (callbackFunc) => {
+    callback.current = callbackFunc;
+  };
+
   const fetchPostData = async () => {
-    const feed = await getPostsByUserId(userId);
+    const feed = await getPostsByUserId(userId, userId);
     setPosts(feed.data.data);
     if (firstRender.current) {
       firstRender.current = false;
@@ -51,6 +71,9 @@ function UserProfilePage(props) {
     const postUserInfo = userProfileData;
     setSelectedPostInfo({ ...postInfo, postUserInfo });
     setShowPostPopup(true);
+    setTimeout(() => {
+      callback.current();
+    }, 1000);
   };
 
   let postSection;
@@ -94,6 +117,29 @@ function UserProfilePage(props) {
           Create your first post here!
         </div>
       </div>
+    );
+  }
+  if (authFlag === false) {
+    return (
+      <Container
+        className="d-flex align-items-center justify-content-center text-center min-vh-100"
+      >
+        {showError
+        && (
+        <Alert
+          variant="danger"
+          onClose={hideError}
+          dismissible
+        >
+          Your session has expired. Please
+          {' '}
+
+          <Alert.Link href="/login"> login </Alert.Link>
+          {' '}
+          again.
+        </Alert>
+        )}
+      </Container>
     );
   }
   return (
@@ -175,6 +221,7 @@ function UserProfilePage(props) {
       </div>
       <PostPopupView
         show={showPostPopup}
+        callbackAfterShow={callbackHandler}
         onHide={() => setShowPostPopup(false)}
         postInfo={selectedPostInfo}
         userInfo={userProfileData}

@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../../utils/api/user';
 
-function RegisterTable() {
+function RegisterTable(props) {
+  const { showAlert } = props;
   const [passwordEqual, setPasswordEqual] = useState(false);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -28,21 +29,17 @@ function RegisterTable() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = document.getElementById('floatingInput').value;
-    const { data } = await register(email, password);
-
-    if (data.token) {
-      // TODO: Add token to local storage
-      // const { token, ...body } = data;
-      // setCredentials(body);
-      // addLoginToken(token);
+    try {
+      await register(email, password);
       navigate('/home');
-    } else {
-      // TODO: Show error message
-      // console.log('Error: Register failed');
+    } catch (err) {
+      if (err.message.includes(410)) {
+        showAlert({ show: true, message: 'Duplicate email. This email has already been registered.' });
+      } else {
+        showAlert({ show: true, message: 'Connection refused. Check your internet connection.' });
+      }
     }
   };
-
-  // Add loading snipper
 
   return (
     <div className="container d-flex flex-column w-25 position-absolute top-50 end-0 translate-middle">
