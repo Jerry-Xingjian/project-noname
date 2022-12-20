@@ -2,12 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const console = require('console');
 const path = require('path');
-// const WebSocket = require('ws');
-// const jwt = require('jsonwebtoken');
+const http = require('http');
+const WebSocket = require('ws');
+const jwt = require('jsonwebtoken');
 // const WebSocket = require('ws');
 // // security feature. JSON web token - https://jwt.io
 // const jwt = require('jsonwebtoken');
-require('./wsserver');
+// require('./wsserver');
 require('dotenv').config();
 
 const webapp = express();
@@ -63,71 +64,72 @@ webapp.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../noname/build/index.html'));
 });
 // connect to server
-webapp.listen(process.env.PORT || 8080, async () => {
+const server = http.createServer(webapp);
+server.listen(process.env.PORT || 8080, async () => {
   await connect();
   console.log(`Server running on port: ${port}`);
 });
 
-module.exports = webapp;
+// module.exports = webapp;
 // require('./wsserver');
 // const serverNum = webapp;
 
 // const url = 'wss://noname-test-version-1.herokuapp.com';
 // const wss = new WebSocket.Server({ noServer: true });
-// const wss = new WebSocket.Server({ server: webapp, clientTracking: true });
+const wss = new WebSocket.Server({ server });
 
-// console.log(wss);
-// // Map of connected clients (user - client id) pairs
-// const connectedUsers = new Map();
+console.log(wss);
+// Map of connected clients (user - client id) pairs
+const connectedUsers = new Map();
 
-// console.log(connectedUsers);
+console.log(connectedUsers);
 
-// // connection event
-// wss.on('connection', (ws, req) => {
-//   let client = '';
-//   let token;
-//   // client authentication get the JWT (token)
-//   // the webserver
-//   if (req.headers.token !== '') {
-//     token = req.headers.token;
-//   }
+// connection event
+wss.on('connection', (ws, req) => {
+  let client = '';
+  let token;
+  // client authentication get the JWT (token)
+  // the webserver
+  if (req.headers.token !== '') {
+    token = req.headers.token;
+  }
 
-//   if (ws.protocol !== '') { // the user's token
-//     token = ws.protocol;
-//     console.log('protocol', ws.protocol);
-//   }
+  if (ws.protocol !== '') { // the user's token
+    token = ws.protocol;
+    console.log('protocol', ws.protocol);
+  }
 
-//   // Find the JWT_SECRET inthe document
-//   const { JWT_SECRET } = process.env;
+  // Find the JWT_SECRET inthe document
+  const { JWT_SECRET } = process.env;
 
-//   // verify the user - retrieve the username from the token
-//   jwt.verify(token, JWT_SECRET, (err, decoded) => {
-//     if (err) {
-//       console.log(`Error: ${err}`);
-//       return;
-//     }
-//     client = decoded.id;
-//     console.log(`New connection from user ${client}`);
-//     if (client !== 'webserver') {
-//       // add client to map of clients
-//       // key is the user name, value is the ws address
-//       connectedUsers.set(String(client), ws);
-//     }
-//   });
+  // verify the user - retrieve the username from the token
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.log(`Error: ${err}`);
+      return;
+    }
+    client = decoded.id;
+    console.log(`New connection from user ${client}`);
+    if (client !== 'webserver') {
+      // add client to map of clients
+      // key is the user name, value is the ws address
+      connectedUsers.set(String(client), ws);
+    }
+  });
 
-//   // message event: sent by the webserver
-//   ws.on('message', (message) => {
-//     console.log(`Received message from user ${client}`);
-//     const msg = JSON.parse(message);
-//     console.log('msg', msg);
-//     if (msg.type === 'new post') { // a new user joined the chat
-//       // iterate over the map to notify all the connected users
-//       const newPost = { type: 'new post', post: msg.data };
-//       connectedUsers.forEach((v) => { v.send(JSON.stringify(newPost)); });
-//     }
-//   });
+  // message event: sent by the webserver
+  ws.on('message', (message) => {
+    console.log(`Received message from user ${client}`);
+    const msg = JSON.parse(message);
+    console.log('msg', msg);
+    if (msg.type === 'new post') { // a new user joined the chat
+      // iterate over the map to notify all the connected users
+      const newPost = { type: 'new post', post: msg.data };
+      connectedUsers.forEach((v) => { v.send(JSON.stringify(newPost)); });
+    }
+  });
 
-//   // welcome message to connected clients
-//   const greet = { type: 'welcome' };
-//   ws.send(JSON.stringify(greet));
-// });
+  // welcome message to connected clients
+  const greet = { type: 'welcome' };
+  ws.send(JSON.stringify(greet));
+});

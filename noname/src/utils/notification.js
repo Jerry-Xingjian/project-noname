@@ -24,7 +24,7 @@ const setupWSConnection = (setNotifications) => {
   console.log(window.location.hostname);
   const socket = new WebSocket(
     process.env.NODE_ENV === 'development'
-      ? 'ws://localhost:8085'
+      ? 'ws://localhost:8080'
       : `wss://${window.location.hostname}`,
     token,
   );
