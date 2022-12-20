@@ -20,13 +20,13 @@ const newPost = (async (req, res) => {
   }, JWT_SECRET, { expiresIn: '1h' });
 
   // websocket server url
-  // const url = process.env.NODE_ENV === 'production'
-  //   ? 'https://noname-test-version-1.herokuapp.com'
-  //   : 'ws://localhost:8085/';
+  const url = process.env.NODE_ENV === 'production'
+    ? 'https://noname-test-version-1.herokuapp.com'
+    : 'ws://localhost:8085/';
   // const url = 'ws://localhost:8085/';
 
   // websocket connection with jwt
-  const connection = new WebSocket('ws://localhost:8085/', {
+  const connection = new WebSocket(url, {
     headers: { token: serverToken },
   });
   try {
