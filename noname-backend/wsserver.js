@@ -3,7 +3,11 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // web socket
-const wss = new WebSocket.Server({ port: 8085 || process.env.PORT, clientTracking: true });
+const wss = new WebSocket.Server({ port: process.env.PORT || 8085 });
+// const url = process.env.NODE_ENV === 'production'
+//     ? 'https://noname-test-version-1.herokuapp.com'
+//     : 'ws://localhost:8085/';
+// const wss = new WebSocket('ws://localhost:8085/');
 
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();

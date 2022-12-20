@@ -25,6 +25,7 @@
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "bson": "^4.7.0",
+    "bufferutil": "^4.0.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "eslint": "^8.28.0",
@@ -36,6 +37,7 @@
     "mongodb": "^4.11.0",
     "sessionstorage": "^0.1.0",
     "supertest": "^6.3.1",
+    "utf-8-validate": "^5.0.10",
     "ws": "^8.11.0"
   }
 }
