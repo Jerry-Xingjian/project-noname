@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const webapp = express();
+const http = require('http');
 const { connect } = require('./dbConnection');
 // Find the JWT_SECRET inthe document
 // const { JWT_SECRET } = process.env;
@@ -67,7 +68,9 @@ webapp.listen(process.env.PORT || 8080, async () => {
   console.log(`Server running on port: ${port}`);
 });
 
-const wss = new Server({ server: webapp });
+const server = http.createServer(webapp);
+
+const wss = new Server({ server });
 
 // Map of connected clients (user - client id) pairs
 const connectedUsers = new Map();
