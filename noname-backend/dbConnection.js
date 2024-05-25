@@ -5,7 +5,7 @@ const console = require('console');
 const dbName = process.env.DB_NAME;
 const password = process.env.DB_PASSWORD;
 
-const dbURL = `mongodb+srv://${dbName}:${password}@cluster0.czpotao.mongodb.net/Project_Noname?retryWrites=true&w=majority`;
+const dbURL = `mongodb+srv://${dbName}:${password}@cluster0.uexvt.mongodb.net/Project_Noname?retryWrites=true&w=majority`;
 
 let MongoConnection;
 
